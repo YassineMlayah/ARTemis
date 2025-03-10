@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Are you an Artist or a Client?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Playfair Display', serif;
+            background-color: #111;
+            color: #fff;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background: #181818;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 80px;
+            color: rgb(245, 243, 222);
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* Espace entre les boutons */
+        }
+        button {
+            width: 100%;
+            padding: 11px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgb(248, 238, 144);
+            color: #111;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: rgb(216, 210, 160);
+        }
+        .signup-link {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        .signup-link a {
+            color: rgb(150, 141, 64);
+            text-decoration: none;
+        }
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+        .btn {
+    display: block; /* Pour occuper toute la largeur */
+    width: 100%;
+    padding: 10px;
+    background-color: rgb(240, 229, 129);
+    color: #111;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none; /* Supprime le soulignement du lien */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: rgb(216, 210, 160);
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Are you an Artist or a Client?</h2>
+        <div class="options">
+            <a href="artiste.html" class="btn">Artist</a>
+            <a href="client.html" class="btn" style="margin-top: 20px;">Client</a>
+        </div>
+        
+        <div style="margin-top: 30px;">  Do You have any  account? <a  style="color:rgb(150, 141, 64);text-decoration: none;"   href="login.html">login</a>
+        </div>
+    </div>
+
+    <script>
+        // Récupérer les éléments du DOM
+        const artistBtn = document.getElementById('artistBtn');
+        const clientBtn = document.getElementById('clientBtn');
+
+        // Rediriger vers la page artiste si l'utilisateur choisit "Artist"
+        artistBtn.addEventListener('click', () => {
+            window.location.href = "artist-page.html"; // Remplacez par l'URL de la page artiste
+        });
+
+        // Rediriger vers la page client si l'utilisateur choisit "Client"
+        clientBtn.addEventListener('click', () => {
+            window.location.href = "client-page.html"; // Remplacez par l'URL de la page client
+        });
+    </script>
+</body>
+</html>
