@@ -6,18 +6,20 @@ public class Product {
     private String type;
     private String description;
     private boolean disponibility;
+    private String photo;
     // Constructor
     public Product() {
         // Default constructor
     }
 
-    public Product(int productID, String name, double price, String type, String description, boolean disponibility) {
+    public Product(int productID, String name, double price, String type, String description, boolean disponibility,String photo) {
         this.productID = productID;
         this.name = name;
         this.price = price;
         this.type = type;
         this.description = description;
         this.disponibility = disponibility;
+        this.photo = photo;
     }
 
     public int getProductID() {
@@ -67,6 +69,12 @@ public class Product {
     public void setDisponibility(boolean disponibility) {
         this.disponibility = disponibility;
     }
+    public String getPhoto() {
+        return photo;
+    }
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 
     @Override
     public String toString() {
@@ -76,7 +84,8 @@ public class Product {
                 ", price=" + price +
                 ", type='" + type + '\'' +
                 ", description='" + description + '\'' +
-                ", disponibility=" + disponibility +
+                ", disponibility=" + disponibility +'\''+
+                ", photo=" + photo +'\''+
                 '}';
     }
 }
