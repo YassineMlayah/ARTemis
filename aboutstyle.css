@@ -1,0 +1,210 @@
+.artemis-search {
+    text-align: center;
+  }
+  
+  .artemis-search form {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #dfe1e5;
+    border-radius: 24px;
+    padding: 8px 16px;
+    box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+    width: 250px;
+    height:30px;
+    margin-right:180px; /* Largeur de la barre de recherche */
+  }
+  
+  .artemis-search input[type="text"] {
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 8px;
+    font-size: 13px;
+    width: 100%; /* Prend toute la largeur disponible */
+  }
+  
+  .artemis-search button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .artemis-search button:hover .search-icon {
+    fill: #1a73e8; /* Changement de couleur de l'icône au survol */
+  }
+  
+  .search-icon {
+    fill: #5f6368; /* Couleur de l'icône */
+    width: 20px; /* Taille de l'icône */
+    height: 20px; /* Taille de l'icône */
+    transition: fill 0.3s ease;
+  }
+  .heart-img{
+    height: 50px;
+    width: 50px;
+  }
+  .white-line {
+    border: none; /* Supprime la bordure par défaut */
+    height: 1px; /* Épaisseur de la barre */
+    background-color: white; /* Couleur de la barre */
+    margin: 0; /* Supprime la marge par défaut */
+  
+}
+.breadcrumb {
+    padding: 10px;
+    background-color: black;
+    margin:100px 60px 60px 60px;
+}
+.breadcrumb a {
+    color:white;
+    font-size: 18px;
+}
+.ourstory {
+    margin-left: 150px;
+    margin-right: 0px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items:flex-end;
+    column-gap: 100px;
+    
+    
+}
+.ourstory-des p {
+    width: 560px;
+    margin-top: 50px;
+}
+.ourstory-img {
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.ourstory-img img {
+    width: 500px;
+    height: 600px;
+}
+.ourstory-des {
+}
+.list{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 30px;
+    margin-top: 150px;
+    margin-left: 60px;
+    margin-right: 60px;
+    align-items: center;
+    margin-bottom: 150px;
+}
+.liste-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid;
+    border-color: rgb(194, 184, 96);
+    padding: 20px;
+
+}
+.liste-item img {
+    width: 40px;
+}
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.service-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background-color: #000;
+    color:#ffffff;
+    margin: 50px;
+}
+.service {
+    text-align: center;
+    max-width: 200px;
+}
+.service-icon {
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+.service-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.service-text {
+    font-size: 14px;
+    color: rgb(194, 184, 96);
+}
+.service-icon-img {
+    width: 55px;
+    height: 55px;
+    margin-right: 10px;
+}
+
+footer {
+    
+    color:black;
+    padding: 20px;
+}
+
+footer .footer-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+footer .footer-section {
+    flex: 1;
+    margin: 10px;
+}
+
+footer .footer-section h3 {
+    margin-top: 0;
+    color:black;
+    
+}
+
+footer .footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer .footer-section ul li a {
+    text-decoration: none;
+    color:black;
+}
+
+footer .footer-section .app-links a img {
+    width: 120px;
+    margin: 5px;
+}
+.modify{
+    display: inline-block;
+    width:100%;
+    font-size:20px;
+}
+main {
+    margin: 40px;
+}
