@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Article Modification</title>
+  <link rel="stylesheet" href="article-window.css">
+  <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:wght@300;700&display=swap"
+      rel="stylesheet"
+    />
+</head>
+<body>
+  <div id="articles">
+    <!-- Article photo used to open the modification window -->
+    <img src="https://i.pinimg.com/736x/5a/ed/5c/5aed5c47522de8f0b2aadfb26160fa59.jpg" alt="Article Photo" class="article-thumbnail" onclick="openModal()">
+  </div>
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <!-- Display the article photo -->
+      <img src="https://i.pinimg.com/736x/5a/ed/5c/5aed5c47522de8f0b2aadfb26160fa59.jpg" alt="Article Photo" class="article-photo">
+      <h2>QUEEN</h2>
+      
+      <!-- Edit text pre-filled with default price -->
+      <div class="itemsty">
+        <label for="price">Price: </label>
+        <input type="text" id="price" value="500 Dt">
+      </div>
+      <!-- Availability dropdown -->
+      <div class="itemsty">
+        <label for="availability">Availability: </label>
+        <select id="availability">
+            <option value="In transit">In transit</option>
+            <option value="In stock">In stock</option>
+            <option value="Out of stock">Out of stock</option>
+        </select>
+      </div>
+      <div class="itemsty">
+        <label for="description">Description:</label>
+        <textarea id="description" name="description">This work is a harmonious fusion of meticulous craftsmanship and bold creativity.The gold headpiece and necklace, with their intricate details and vibrant red gemstones, are a testament to the power of ornamentation to tell a story of elegance and power. Each curve, each clasp, each gemstone placement reflects not only precision but also an emotional resonance—a longing to capture the timelessness of beauty</textarea>
+      </div>
+
+      <!-- Buttons for update and delete actions -->
+      <div class="buttons">
+        <button onclick="updateArticle()">Update</button>
+        <button class="delete-btn" onclick="deleteArticle()">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="article-window.js"></script>
+</body>
+</html>
