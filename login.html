@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Playfair Display', serif;
+            background-color: #111;
+            color: #fff;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background:#0f0f0f;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: rgb(150, 141, 64);
+        }
+        .form-group {
+            margin-bottom: 20px; /* Espacement uniforme */
+        }
+        label {
+            display: block;
+            margin-bottom: 8px; /* Espacement uniforme */
+            font-size: 14px;
+            color: rgb(231, 226, 182);
+        }
+        input, button {
+            width: 100%;
+            padding: 12px; /* Même padding pour les champs et le bouton */
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            font-size: 14px;
+            box-sizing: border-box; /* Inclut le padding dans la largeur */
+        }
+        input {
+            background-color: #333; /* Couleur de fond pour les champs */
+            color: #fff; /* Texte en blanc */
+        }
+        input::placeholder {
+            color: #aaa; /* Couleur du placeholder */
+        }
+        button {
+            background-color: rgb(241, 226, 88);
+            color: #111;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px; /* Espacement uniforme */
+        }
+        button:hover {
+            background-color: rgb(216, 210, 160);
+        }
+        .signup-link {
+            text-align: center;
+            margin-top: 20px; /* Espacement uniforme */
+        }
+        .signup-link a {
+            color: rgb(194, 184, 96);
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form action="/login" method="POST">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit">Login</button>
+            <div class="signup-link">
+                Don't have an account? <a href="page.html">Sign Up</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

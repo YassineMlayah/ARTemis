@@ -1,0 +1,347 @@
+.navstyle{
+    color: aliceblue;
+    font-family:'Playfair Display', serif ;
+  }
+
+  
+  .artemis-search {
+    text-align: center;
+  }
+  
+  .artemis-search form {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #dfe1e5;
+    border-radius: 24px;
+    padding: 8px 16px;
+    box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+    width: 250px;
+    height:30px;
+    margin-right:180px; /* Largeur de la barre de recherche */
+  }
+  
+  .artemis-search input[type="text"] {
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 8px;
+    font-size: 13px;
+    width: 100%; /* Prend toute la largeur disponible */
+  }
+  
+  .artemis-search button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .artemis-search button:hover .search-icon {
+    fill: #1a73e8; /* Changement de couleur de l'icône au survol */
+  }
+  
+  .search-icon {
+    fill: #5f6368; /* Couleur de l'icône */
+    width: 20px; /* Taille de l'icône */
+    height: 20px; /* Taille de l'icône */
+    transition: fill 0.3s ease;
+  }
+  .heart-img{
+    height: 50px;
+    width: 50px;
+   
+  
+   
+  }
+  .white-line {
+    border: none; /* Supprime la bordure par défaut */
+    height: 1px; /* Épaisseur de la barre */
+    background-color: white; /* Couleur de la barre */
+    margin: 0; /* Supprime la marge par défaut */
+  
+}
+.vertical-bar {
+    width: 1px; /* Largeur de la barre */
+    height:470px; /* Hauteur de la barre (ajustez selon vos besoins) */
+    background-color: white; /* Couleur de la barre */
+    margin: 20px 0;
+    margin-top: 0px; /* Marge pour l'espacement */
+}
+
+        /* Style pour le conteneur principal */
+        .dropdown-container {
+            width: 320px; /* Largeur du conteneur */
+            margin: 50px auto; /* Centrer le conteneur */
+            font-family: Arial, sans-serif;
+            position: relative;
+        }
+
+        /* Style pour le bouton de la barre déroulante */
+        .dropdown-button {
+            width: 100%;
+            padding: 8px;
+            font-size: 14px;
+            background-color: #e6d9d9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-left: 90px;
+        }
+
+        /* Flèche pour indiquer que c'est une liste déroulante */
+        .dropdown-button::after {
+            content: "▼";
+            font-size: 12px;
+            color: #555;
+        }
+
+        /* Style pour le contenu de la liste déroulante */
+        .dropdown-content {
+            display: none; /* Masqué par défaut */
+            position: absolute;
+            width: 100%;
+            background-color:#e6d9d9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            margin-top: 5px;
+            margin-left: 90px;
+        }
+
+        /* Style pour les options de la liste déroulante */
+        .dropdown-content a {
+            display: block;
+            padding: 12px;
+            font-size: 14px;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Afficher la liste déroulante au clic */
+        .dropdown-container.active .dropdown-content {
+            display: block;
+        }
+        .categories-bare{
+          margin-left: 150px;
+          margin-top: 40px;
+          
+
+        }
+        .texte{
+          text-decoration: none; /* Supprime le soulignement */
+          border-bottom: none; /* Supprime la bordure inférieure */
+          color: white;
+          font-size: 30px;
+
+        
+          font-weight: 500;
+
+          
+        }
+        .categories-list ul {
+          list-style: none; /* Supprime les puces par défaut */
+          padding: 0;
+          margin: 0;
+      }
+      
+      .categories-list ul li {
+          margin-bottom: 10px; /* Espace entre les catégories */
+      }
+      
+      .categories-list ul li a {
+          text-decoration: none; /* Supprime le soulignement */
+          color: white; /* Texte en blanc */
+          font-size: 16px;
+          display: flex; /* Pour aligner la flèche et le texte */
+          align-items: center; /* Centre verticalement */
+          gap: 10px; /* Espace entre la flèche et le texte */
+          transition: opacity 0.3s ease; /* Animation de disparition */
+      }
+      
+      .categories-list ul li a::before {
+          content: "▼"; /* Flèche Unicode */
+          font-size: 10px; /* Taille de la flèche */
+          color: rgb(207, 187, 121); /* Couleur de la flèche */
+          transition: opacity 0.3s ease; /* Animation de disparition */
+      }
+
+      .categories-list ul li a.hide-all {
+          opacity: 0; /* Masque le texte et la flèche */
+      }
+      .textep{
+        text-decoration: none; /* Supprime le soulignement */
+        border-bottom: none; /* Supprime la bordure inférieure */
+        color: white;
+        font-size: 60px;
+        margin-left: 200px;
+        
+      }
+      .button-signUP{
+        width: 300px;
+        height: 35px;
+        background-color:rgb(194, 184, 96);
+        
+        border-radius: 10px;
+      }
+
+      @keyframes fadeInUp {
+        0% {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      .gallery {
+        width: 900px; /* Largeur fixe */
+        height: 450px; /* Hauteur fixe */
+        background-size: contain; 
+        /* Affiche toute l'image sans la recadrer */
+        background-size: 100% 100%; 
+        background-position: center; /* Centre l'image */
+        background-repeat: no-repeat; /* Empêche la répétition de l'image */
+        overflow: hidden;
+        animation: fadeInZoom 3s ease-out forwards;
+        margin-left:210px;
+        margin-top: 60px;
+      }
+      
+      .gallery.animate {
+        animation: fadeInUp 3s ease-out forwards; /* Utilise fadeInUp */
+      }
+
+      .card {
+        height: 600px; /* Hauteur fixe pour toutes les cartes */
+        width: 350px; /* Largeur fixe pour toutes les cartes */
+        display: flex;
+        flex-direction: column;
+        margin: 15px auto; /* Espacement entre les cartes */
+        border: 1px solid #ddd; /* Bordure légère */
+        border-radius: 10px; /* Coins arrondis */
+        overflow: hidden; /* Cache le débordement */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+    }
+    
+    .card-img-top {
+        height: 400px; /* Hauteur fixe pour les images */
+        width: 100%; /* Largeur de l'image à 100% de la carte */
+        object-fit: cover; /* Ajustement pour que l'image couvre toute la zone sans se déformer */
+        background-size: contain;
+    }
+    
+    .card-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 15px; /* Espacement interne */
+        background-color: #f9f9f9; /* Couleur de fond */
+    }
+    
+    textarea {
+        width: 100%;
+        height: 100px; /* Hauteur fixe pour les zones de texte */
+        resize: none; /* Empêche le redimensionnement */
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+        font-size:30px;
+        color: #050000;
+        background-color: #e7e38c;
+        font-family:'Playfair Display', serif;
+        font-weight: 200;
+        text-align: center; /* Centre horizontalement */
+        line-height: 100px;
+        
+    }
+    
+    .row + .row {
+        margin-top: 30px; /* Espace entre les lignes */
+    }
+
+
+
+    
+    .service-container {
+      display: flex;
+      justify-content: space-around;
+      padding: 20px;
+      background-color: #000;
+      color:#ffffff;
+  }
+  .service {
+      text-align: center;
+      max-width: 200px;
+  }
+  .service-icon {
+      font-size: 50px;
+      margin-bottom: 10px;
+  }
+  .service-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 5px;
+  }
+  .service-text {
+      font-size: 14px;
+      color: rgb(194, 184, 96);
+  }
+  .service-icon-img {
+      width: 55px;
+      height: 55px;
+      margin-right: 10px;
+  }
+  footer {
+    
+    color:black;
+    padding: 20px;
+}
+
+footer .footer-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+footer .footer-section {
+    flex: 1;
+    margin: 10px;
+}
+
+footer .footer-section h3 {
+    margin-top: 0;
+    color:black;
+    
+}
+
+footer .footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer .footer-section ul li a {
+    text-decoration: none;
+    color:black;
+}
+
+footer .footer-section .app-links a img {
+    width: 120px;
+    margin: 5px;
+}
