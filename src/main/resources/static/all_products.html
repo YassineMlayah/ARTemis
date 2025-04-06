@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Products</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Reuse styles from the original file */
+      body {
+        margin: 0;
+        background-color: white;
+        color: black;
+        font-family: "Playfair Display", serif;
+      }
+
+      .container {
+        max-width: 90%;
+        margin-top: 30px;
+      }
+
+      .filter-section {
+        background-color: rgb(219, 206, 131);
+        padding: 20px;
+        border-radius: 15px;
+        margin-right: 20px;
+      }
+
+      .cards-container {
+        margin-top: 20px;
+      }
+
+      .card {
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        margin-bottom: 30px;
+        background-color: #f8f9fa;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        cursor: pointer;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .card-img-top {
+        height: 280px;
+        object-fit: cover;
+        border-bottom: 2px solid rgb(219, 206, 131);
+      }
+
+      .card-body {
+        padding: 20px;
+        background-color: rgb(219, 206, 131);
+      }
+
+      .modal-content {
+        border: 2px solid rgb(219, 206, 131);
+      }
+
+      .modal-header {
+        background-color: rgb(219, 206, 131);
+        color: black;
+      }
+
+      .modal-footer {
+        background-color: #f8f9fa;
+      }
+
+      .btn-custom {
+        background-color: black;
+        color: rgb(247, 246, 244);
+        border: none;
+      }
+
+      .btn-custom:hover {
+        background-color: rgb(50, 50, 50);
+        color: rgb(219, 206, 131);
+      }
+    </style>
+  </head>
+  <body style="background-color: black">
+    <header style="background-color: black; padding: 20px 50px">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+          <img
+            src="./images/image.png"
+            class="log-icone"
+            alt="Logo"
+            style="width: 60px; height: 60px; margin-right: 10px"
+          />
+          <h1 style="color: rgb(207, 187, 121); font-size: 28px; margin: 0">
+            <span style="color: white">ART</span>emis
+          </h1>
+        </div>
+        <nav>
+          <ul
+            class="d-flex gap-4"
+            style="list-style: none; margin: 0; padding: 0"
+          >
+            <li>
+              <a
+                href="/"
+                style="color: white; text-decoration: none; font-size: 16px"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="/contact"
+                style="color: white; text-decoration: none; font-size: 16px"
+                >Contact</a
+              >
+            </li>
+            <li>
+              <a
+                href="/aboutus"
+                style="color: white; text-decoration: none; font-size: 16px"
+                >About</a
+              >
+            </li>
+          </ul>
+        </nav>
+        <div class="d-flex align-items-center gap-3">
+          <a
+            href="/login"
+            style="color: white; text-decoration: none; font-size: 16px"
+            >Log in</a
+          >
+          <a href="/profile">
+            <img
+              src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg"
+              alt="Profile"
+              style="width: 40px; height: 40px; border-radius: 50%"
+            />
+          </a>
+        </div>
+      </div>
+    </header>
+    <hr style="border: 1px solid rgb(207, 187, 121); margin: 0" />
+    <div class="container">
+      <div class="row">
+        <!-- Filter Section -->
+        <div class="col-md-3">
+          <div class="filter-section">
+            <h4>Filters</h4>
+            <div class="mb-3">
+              <label for="minPrice" class="form-label">Min Price</label>
+              <input
+                type="number"
+                class="form-control"
+                id="minPrice"
+                placeholder="Enter minimum price"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="maxPrice" class="form-label">Max Price</label>
+              <input
+                type="number"
+                class="form-control"
+                id="maxPrice"
+                placeholder="Enter maximum price"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="sortOptions" class="form-label">Sort By</label>
+              <select id="sortOptions" class="form-select">
+                <option value="lowToHigh">Price: Low to High</option>
+                <option value="highToLow">Price: High to Low</option>
+                <option value="alphabetical">Alphabetical</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="categoryFilter" class="form-label">Category</label>
+              <select id="categoryFilter" class="form-select">
+                <option value="all">All Categories</option>
+                <!-- Categories will be dynamically populated -->
+              </select>
+            </div>
+            <button class="btn btn-custom w-100" onclick="applyFilters()">
+              Apply Filters
+            </button>
+          </div>
+        </div>
+
+        <!-- Products Section -->
+        <div class="col-md-9">
+          <div class="cards-container">
+            <div class="row"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Modal -->
+    <div
+      class="modal fade"
+      id="productModal"
+      tabindex="-1"
+      aria-labelledby="productModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="productModalLabel">Product Details</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-6">
+                <img
+                  id="productModalImage"
+                  src=""
+                  class="img-fluid rounded"
+                  style="max-height: 400px; width: 100%; object-fit: cover"
+                />
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="productModalDescription" class="form-label"
+                    >Description</label
+                  >
+                  <textarea
+                    id="productModalDescription"
+                    class="form-control"
+                    rows="3"
+                    readonly
+                  ></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="productModalPrice" class="form-label"
+                    >Price</label
+                  >
+                  <input
+                    type="text"
+                    id="productModalPrice"
+                    class="form-control"
+                    readonly
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="productModalAvailability" class="form-label"
+                    >Availability</label
+                  >
+                  <input
+                    type="text"
+                    id="productModalAvailability"
+                    class="form-control"
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-custom"
+              onclick="addToCart($('#productModal').data('productId'))"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        fetchCategories();
+        fetchProducts();
+
+        $(".cards-container").on("click", ".card", function () {
+          const productId = $(this).data("product-id");
+          fetchProductDetails(productId);
+        });
+      });
+
+      function fetchCategories() {
+        const categories = [
+          "SCULPTURE",
+          "PAINTING",
+          "PHOTOGRAPHY",
+          "DIGITAL_ART",
+          "SKETCHING",
+        ];
+        const categoryFilter = $("#categoryFilter");
+        categoryFilter.empty(); // Clear existing options
+        categoryFilter.append('<option value="all">All Categories</option>'); // Default option
+        categories.forEach((category) => {
+          categoryFilter.append(
+            `<option value="${category}">${category.replace("_", " ")}</option>`
+          );
+        });
+      }
+
+      function fetchProducts() {
+        $.ajax({
+          url: "/api/product/all",
+          method: "GET",
+          success: function (products) {
+            const container = $(".cards-container .row");
+            container.empty();
+            products
+              .sort((a, b) => b.available - a.available) // Prioritize available products
+              .forEach((product) => {
+                const card = `
+                  <div class="col-md-4">
+                    <div class="card" data-product-id="${product.productID}">
+                      <img src="${
+                        product.imagePath
+                      }" class="card-img-top" alt="${product.name}" />
+                      <div class="card-body">
+                        <textarea readonly>${product.description}</textarea>
+                        <div class="d-flex justify-content-between mt-2">
+                          <span class="badge bg-dark">$${product.price}</span>
+                          <span class="badge ${
+                            product.available ? "bg-success" : "bg-danger"
+                          }">
+                            ${product.available ? "Available" : "Sold"}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>`;
+                container.append(card);
+              });
+          },
+          error: function (xhr, status, error) {
+            console.error("Failed to fetch products:", error);
+            alert("Failed to load products. Please try again later.");
+          },
+        });
+      }
+
+      function fetchProductDetails(productId) {
+        $.ajax({
+          url: `/api/product/${productId}`,
+          method: "GET",
+          success: function (product) {
+            $("#productModal").data("productId", product.productID);
+            $("#productModalImage").attr("src", product.imagePath);
+            $("#productModalDescription").val(product.description);
+            $("#productModalPrice").val(`$${product.price}`);
+            $("#productModalAvailability").val(
+              product.available ? "Available" : "Sold"
+            );
+            $("#productModal").modal("show");
+          },
+          error: function (xhr, status, error) {
+            console.error("Failed to fetch product details:", error);
+            alert("Failed to load product details. Please try again later.");
+          },
+        });
+      }
+
+      function addToCart(productId) {
+        $.ajax({
+          url: `/api/cart/add/${productId}`,
+          method: "POST",
+          success: function () {
+            alert("Product added to cart successfully!");
+            $("#productModal").modal("hide");
+          },
+          error: function (xhr, status, error) {
+            console.error("Failed to add product to cart:", error);
+            alert("Failed to add product to cart. Please try again later.");
+          },
+        });
+      }
+
+      function applyFilters() {
+        const minPrice = $("#minPrice").val();
+        const maxPrice = $("#maxPrice").val();
+        const sortOption = $("#sortOptions").val();
+        const category = $("#categoryFilter").val();
+
+        // Implement filter logic here
+        alert(
+          `Filters applied! Min Price: ${minPrice}, Max Price: ${maxPrice}, Sort: ${sortOption}, Category: ${category}`
+        );
+      }
+    </script>
+    <footer
+      style="
+        background-color: black;
+        color: white;
+        padding: 40px 50px;
+        margin-top: 50px;
+      "
+    >
+      <div class="row">
+        <div class="col-md-3">
+          <h5 style="color: rgb(207, 187, 121)">Exclusive</h5>
+          <p>Subscribe to get 10% off your first order</p>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            style="width: 100%; padding: 8px; border: none; border-radius: 5px"
+          />
+        </div>
+        <div class="col-md-3">
+          <h5 style="color: rgb(207, 187, 121)">Support</h5>
+          <p>FST, Campus Universitaire El-Manar, 2092 El Manar Tunis</p>
+          <p>ARTemisSupport@exclusive.com</p>
+          <p>+216 99 999 999</p>
+        </div>
+        <div class="col-md-3">
+          <h5 style="color: rgb(207, 187, 121)">Account</h5>
+          <ul style="list-style: none; padding: 0">
+            <li>
+              <a href="/profile" style="color: white; text-decoration: none"
+                >My Account</a
+              >
+            </li>
+            <li>
+              <a href="/login" style="color: white; text-decoration: none"
+                >Login / Register</a
+              >
+            </li>
+            <li>
+              <a href="#" style="color: white; text-decoration: none">Cart</a>
+            </li>
+            <li>
+              <a href="#" style="color: white; text-decoration: none"
+                >Wishlist</a
+              >
+            </li>
+            <li>
+              <a href="#" style="color: white; text-decoration: none">Shop</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h5 style="color: rgb(207, 187, 121)">Quick Links</h5>
+          <ul style="list-style: none; padding: 0">
+            <li>
+              <a href="#" style="color: white; text-decoration: none"
+                >Privacy Policy</a
+              >
+            </li>
+            <li>
+              <a href="#" style="color: white; text-decoration: none"
+                >Terms Of Use</a
+              >
+            </li>
+            <li>
+              <a href="#" style="color: white; text-decoration: none">FAQ</a>
+            </li>
+            <li>
+              <a href="#" style="color: white; text-decoration: none"
+                >Contact</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="text-center" style="margin-top: 20px">
+        <p>Sponsored by Twitter & Instagram</p>
+        <div class="d-flex justify-content-center gap-3">
+          <a href="#"
+            ><img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj-X06O3ppyMhQotOP_Km27fpwe0FgZGqXiA&s"
+              alt="Twitter"
+              style="width: 30px; height: 30px"
+          /></a>
+          <a href="#"
+            ><img
+              src="https://cdn-icons-png.flaticon.com/512/5968/5968776.png"
+              alt="Instagram"
+              style="width: 30px; height: 30px"
+          /></a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

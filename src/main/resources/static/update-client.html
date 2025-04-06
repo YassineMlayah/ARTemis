@@ -1,0 +1,982 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Artist Profile</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      /* Animation pour les cartes */
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+      }
+      .card:hover {
+        animation: float 3s ease-in-out infinite;
+      }
+      .card:hover::after {
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        background: radial-gradient(
+          circle,
+          rgba(219, 206, 131, 0.3) 0%,
+          transparent 70%
+        );
+        z-index: -1;
+        border-radius: 15px;
+      }
+
+      body {
+        margin: 0;
+        background-color: white;
+        color: black;
+        display: flex;
+        justify-content: center;
+        font-family: "Playfair Display", serif;
+      }
+
+      .container {
+        max-width: 78%;
+      }
+
+      .top-section {
+        background-color: black;
+        color: white;
+        padding: 40px 50px;
+        border-radius: 20px;
+        margin-top: 30px;
+        position: relative;
+      }
+
+      .profile-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 90px;
+        padding-bottom: 20px;
+      }
+
+      .profile-text {
+        text-align: left;
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .circle-img {
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid rgb(219, 206, 131);
+      }
+
+      .right-section {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        font-size: 18px;
+        font-weight: bold;
+      }
+
+      .white-line {
+        width: 100%;
+        height: 2px;
+        background-color: white;
+        border: none;
+        margin: 20px 0;
+      }
+
+      .heart-img {
+        height: 40px;
+        width: 40px;
+      }
+
+      .form-container {
+        background-color: rgb(218, 202, 114);
+        border-radius: 15px;
+        padding: 30px;
+        margin-top: 30px;
+        margin-bottom: 50px;
+      }
+
+      .form-label {
+        display: inline-block;
+        width: 100px;
+        margin-right: 10px;
+      }
+
+      /* Styles pour les cartes */
+      .cards-container {
+        margin-top: 50px;
+        margin-bottom: 80px;
+      }
+
+      .card {
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        margin-bottom: 30px;
+        background-color: #f8f9fa;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        cursor: pointer;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .card-img-top {
+        height: 280px;
+        object-fit: cover;
+        border-bottom: 2px solid rgb(219, 206, 131);
+      }
+
+      .card-body {
+        padding: 20px;
+        background-color: rgb(219, 206, 131);
+      }
+
+      .card-body textarea {
+        width: 100%;
+        border: none;
+        background: transparent;
+        resize: none;
+        font-family: "Playfair Display", serif;
+        font-size: 16px;
+        color: black;
+        padding: 8px;
+        min-height: 60px;
+        transition: all 0.3s ease;
+        background-color: white;
+        cursor: text;
+      }
+
+      .card-body textarea:focus {
+        outline: none;
+        background-color: #f8f8f8;
+        border-radius: 4px;
+        box-shadow: 0 0 0 2px rgba(219, 206, 131, 0.3);
+      }
+
+      /* Style pour la modal */
+      .modal-content {
+        border: 2px solid rgb(219, 206, 131);
+      }
+
+      .modal-header {
+        background-color: rgb(219, 206, 131);
+        color: black;
+      }
+
+      .modal-footer {
+        background-color: #f8f9fa;
+      }
+
+      .btn-custom {
+        background-color: black;
+        color: rgb(247, 246, 244);
+        border: none;
+      }
+
+      .btn-custom:hover {
+        background-color: rgb(50, 50, 50);
+        color: rgb(219, 206, 131);
+      }
+
+      /* Contact section */
+      .contact-form {
+        background-color: rgb(219, 206, 131);
+        padding: 40px;
+        border-radius: 15px;
+        margin: 50px 0;
+        border-left: 5px solid rgb(219, 206, 131);
+        margin-top: 30px;
+      }
+
+      .contact-info {
+        margin-top: 20px;
+        padding: 60px 0;
+        background-color: black;
+        width: 100%;
+        color: white;
+        text-align: center;
+        border-radius: 15px;
+      }
+
+      /* Navigation links */
+      .nav-link {
+        color: white;
+        text-decoration: none;
+        cursor: pointer;
+        transition: color 0.3s;
+      }
+
+      .nav-link:hover {
+        color: rgb(219, 206, 131);
+      }
+
+      /* Account actions */
+      .account-actions {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        gap: 10px;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .container {
+          max-width: 95%;
+        }
+
+        .profile-container {
+          flex-direction: column;
+          gap: 30px;
+        }
+
+        .card-img-top {
+          height: 200px;
+        }
+
+        .card-body textarea {
+          font-size: 14px;
+          min-height: 50px;
+        }
+
+        .form-control,
+        .btn {
+          width: 100% !important;
+          margin-left: 0 !important;
+        }
+
+        .account-actions {
+          position: static;
+          justify-content: flex-end;
+          margin-bottom: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="top-section">
+        <div class="account-actions">
+          <button class="btn btn-sm btn-light" onclick="logout()">
+            Logout
+          </button>
+          <button
+            class="btn btn-sm btn-outline-danger"
+            onclick="showDeleteModal()"
+          >
+            Delete Account
+          </button>
+        </div>
+
+        <div class="d-flex gap-3">
+          <h4
+            style="
+              margin-right: auto;
+              font-family: 'Playfair Display', serif;
+              margin-top: 20px;
+            "
+          >
+            Client Profile
+          </h4>
+          <a href="/add-article"> </a>
+        </div>
+
+        <div class="profile-container">
+          <div class="profile-text">
+            <h1 style="font-size: 50px; margin-left: 10px" id="artistFirstName">
+              Foulan
+            </h1>
+            <h1
+              style="
+                margin-left: 60px;
+                font-size: 50px;
+                color: rgb(219, 206, 131);
+              "
+              id="artistLastName"
+            >
+              Foulani
+            </h1>
+          </div>
+
+          <img
+            class="circle-img"
+            src="https://i.pinimg.com/736x/12/4c/5f/124c5f5cb3ee63ce9116de0fd6062209.jpg"
+            alt="Profile Image"
+          />
+
+          <div class="right-section">
+            <a class="nav-link" onclick="scrollToSection('update-profile')"
+              >Update Profile</a
+            >
+
+            <a class="nav-link" onclick="scrollToSection('contact-section')"
+              >Contact Us</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Update Profile Section -->
+      <div id="update-profile" class="form-container mx-auto shadow-lg">
+        <h3 class="text-center" style="font-size: 50px; margin-bottom: 40px">
+          Update Your Information
+        </h3>
+        <form id="profileForm">
+          <div class="mb-4">
+            <label
+              for="first-name"
+              class="form-label"
+              style="margin-left: 50px; font-size: 20px"
+              >First Name</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="first-name"
+              style="margin-left: 50px; width: 830px"
+              placeholder="Enter your first name"
+            />
+          </div>
+
+          <div class="mb-4">
+            <label
+              for="last-name"
+              class="form-label"
+              style="margin-left: 50px; font-size: 20px"
+              >Last Name</label
+            >
+            <input
+              type="text"
+              class="form-control form"
+              id="last-name"
+              style="margin-left: 50px; width: 830px"
+              placeholder="Enter your last name"
+            />
+          </div>
+
+          <div class="mb-4">
+            <label
+              for="birthday"
+              class="form-label"
+              style="margin-left: 50px; font-size: 20px"
+              >Birthday</label
+            >
+            <input
+              type="date"
+              class="form-control"
+              style="margin-left: 50px; width: 830px"
+              id="birthday"
+            />
+          </div>
+
+          <div class="mb-4">
+            <label
+              for="email"
+              class="form-label"
+              style="margin-left: 50px; font-size: 20px"
+              >E-mail</label
+            >
+            <input
+              type="email"
+              class="form-control"
+              style="margin-left: 50px; width: 830px"
+              id="email"
+              placeholder="Enter your email"
+            />
+          </div>
+
+          <div class="mb-4">
+            <label
+              for="password"
+              class="form-label"
+              style="margin-left: 50px; font-size: 20px"
+              >Password</label
+            >
+            <input
+              type="password"
+              class="form-control"
+              style="margin-left: 50px; width: 830px"
+              id="password"
+              placeholder="Enter your password"
+            />
+          </div>
+
+          <div class="mb-4">
+            <label
+              for="phone"
+              class="form-label"
+              style="margin-left: 50px; font-size: 20px"
+              >Phone</label
+            >
+            <input
+              type="tel"
+              class="form-control"
+              style="margin-left: 50px; width: 830px"
+              id="phone"
+              placeholder="Enter your phone-number"
+            />
+          </div>
+
+          <div class="mb-4">
+            <label
+              for="address"
+              class="form-label"
+              style="margin-left: 50px; font-size: 20px"
+              >Address</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              style="margin-left: 50px; width: 830px"
+              id="address"
+              placeholder="Enter your address"
+            />
+          </div>
+
+          <div class="d-flex justify-content-between">
+            <button
+              type="submit"
+              class="btn"
+              style="
+                background-color: black;
+                color: rgb(216, 202, 125);
+                font-size: 20px;
+                width: 400px;
+                margin-left: 50px;
+                margin-top: 30px;
+              "
+            >
+              Update Profile
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-danger"
+              style="
+                font-size: 20px;
+                width: 400px;
+                margin-left: 50px;
+                margin-top: 30px;
+              "
+              onclick="showDeleteModal()"
+            >
+              Delete Account
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Articles Section -->
+
+      <!-- Contact Section -->
+      <div id="contact-section" class="contact-form">
+        <h2
+          style="
+            font-family: 'Playfair Display', serif;
+            color: #000;
+            margin-bottom: 30px;
+            font-size: 45px;
+          "
+        >
+          Contact Us
+        </h2>
+
+        <form>
+          <div class="mb-4">
+            <label
+              for="contact-name"
+              style="
+                display: block;
+                font-family: 'Playfair Display', serif;
+                margin-bottom: 8px;
+                color: #333;
+                font-size: 20px;
+              "
+              >Full Name</label
+            >
+            <input
+              type="text"
+              id="contact-name"
+              class="form-control"
+              style="
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                font-family: 'Playfair Display', serif;
+              "
+            />
+          </div>
+
+          <div class="mb-4">
+            <label
+              for="contact-email"
+              style="
+                display: block;
+                font-family: 'Playfair Display', serif;
+                margin-bottom: 8px;
+                color: #333;
+                font-size: 20px;
+              "
+              >E-mail</label
+            >
+            <input
+              type="email"
+              id="contact-email"
+              class="form-control"
+              style="
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                font-family: 'Playfair Display', serif;
+              "
+            />
+          </div>
+
+          <div class="mb-4">
+            <label
+              for="contact-message"
+              style="
+                display: block;
+                font-family: 'Playfair Display', serif;
+                margin-bottom: 8px;
+                color: #333333;
+                font-size: 20px;
+              "
+              >Message</label
+            >
+            <textarea
+              id="contact-message"
+              rows="4"
+              class="form-control"
+              style="
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                font-family: 'Playfair Display', serif;
+                resize: vertical;
+              "
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            style="
+              background-color: #000;
+              color: white;
+              border: none;
+              padding: 12px 25px;
+              font-family: 'Playfair Display', serif;
+              font-size: 1rem;
+              border-radius: 5px;
+              cursor: pointer;
+              transition: background 0.4s;
+            "
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+
+      <!-- Contact Info Section -->
+      <div class="contact-info">
+        <div class="container">
+          <h3
+            style="
+              font-family: 'Playfair Display', serif;
+              font-size: 1.8rem;
+              margin-bottom: 35px;
+              color: #dbce83;
+            "
+          >
+            Direct Informations
+          </h3>
+
+          <div
+            style="
+              display: flex;
+              justify-content: center;
+              gap: 50px;
+              flex-wrap: wrap;
+            "
+          >
+            <div>
+              <p style="margin-bottom: 15px">
+                <i
+                  class="fas fa-phone-alt"
+                  style="color: #dbce83; width: 20px; font-size: 1.2rem"
+                ></i
+                ><br />
+                <span
+                  style="
+                    font-family: 'Playfair Display', serif;
+                    font-size: 1.1rem;
+                  "
+                  >+216 12 345 678</span
+                >
+              </p>
+            </div>
+
+            <div>
+              <p style="margin-bottom: 15px">
+                <i
+                  class="fas fa-envelope"
+                  style="color: #dbce83; width: 20px; font-size: 1.2rem"
+                ></i
+                ><br />
+                <span
+                  style="
+                    font-family: 'Playfair Display', serif;
+                    font-size: 1.1rem;
+                  "
+                  >contact@artgallery.com</span
+                >
+              </p>
+            </div>
+
+            <div>
+              <p style="margin-bottom: 15px">
+                <i
+                  class="fas fa-map-marker-alt"
+                  style="color: #dbce83; width: 20px; font-size: 1.2rem"
+                ></i
+                ><br />
+                <span
+                  style="
+                    font-family: 'Playfair Display', serif;
+                    font-size: 1.1rem;
+                  "
+                  >Tunis, Tunisia</span
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article Modal -->
+      <div
+        class="modal fade"
+        id="articleModal"
+        tabindex="-1"
+        aria-labelledby="articleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg">
+          <div
+            class="modal-content"
+            style="border-radius: 15px; overflow: hidden"
+          >
+            <div
+              class="modal-header"
+              style="background-color: #dbce83; border-bottom: none"
+            >
+              <h5
+                class="modal-title"
+                id="articleModalLabel"
+                style="font-family: 'Playfair Display', serif; font-size: 24px"
+              >
+                Article Details
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <img
+                    id="articleModalImage"
+                    src=""
+                    class="img-fluid rounded"
+                    style="max-height: 400px; width: 100%; object-fit: cover"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label
+                      for="articleModalDescription"
+                      class="form-label"
+                      style="font-family: 'Playfair Display', serif"
+                      >Description</label
+                    >
+                    <textarea
+                      id="articleModalDescription"
+                      class="form-control"
+                      rows="3"
+                      style="font-family: 'Playfair Display', serif"
+                    ></textarea>
+                  </div>
+                  <div class="mb-3">
+                    <label
+                      for="articleModalPrice"
+                      class="form-label"
+                      style="font-family: 'Playfair Display', serif"
+                      >Price</label
+                    >
+                    <input
+                      type="text"
+                      id="articleModalPrice"
+                      class="form-control"
+                      value="$120"
+                      style="font-family: 'Playfair Display', serif"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label
+                      for="articleModalAvailability"
+                      class="form-label"
+                      style="font-family: 'Playfair Display', serif"
+                      >Availability</label
+                    >
+                    <select
+                      id="articleModalAvailability"
+                      class="form-select"
+                      style="font-family: 'Playfair Display', serif"
+                    >
+                      <option>Available</option>
+                      <option>Sold</option>
+                      <option>Reserved</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="modal-footer"
+              style="background-color: #f8f9fa; border-top: none"
+            >
+              <button
+                type="button"
+                class="btn btn-danger"
+                style="font-family: 'Playfair Display', serif"
+                onclick="deleteArticle()"
+              >
+                Delete
+              </button>
+              <button
+                type="button"
+                class="btn btn-custom"
+                style="font-family: 'Playfair Display', serif"
+                onclick="updateArticle()"
+              >
+                Update
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delete Account Modal -->
+      <div
+        class="modal fade"
+        id="deleteAccountModal"
+        tabindex="-1"
+        aria-labelledby="deleteAccountModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+              <h5 class="modal-title" id="deleteAccountModalLabel">
+                Delete Account
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <p>
+                Are you sure you want to permanently delete your account? This
+                action cannot be undone.
+              </p>
+              <p>All your articles and data will be lost.</p>
+              <div class="form-check mb-3">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="confirmDelete"
+                />
+                <label class="form-check-label" for="confirmDelete">
+                  I understand this action is irreversible
+                </label>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger"
+                id="deleteAccountBtn"
+                disabled=""
+              >
+                Delete My Account
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        // Fetch user data from the backend
+        fetchUserProfile();
+
+        // Delete account confirmation
+        $("#confirmDelete").change(function () {
+          $("#deleteAccountBtn").prop("disabled", !$(this).is(":checked"));
+        });
+
+        // Form submission
+        $("#profileForm").submit(function (e) {
+          e.preventDefault();
+          updateProfile();
+        });
+
+        // Initialize delete account button
+        $("#deleteAccountBtn").click(deleteAccount);
+      });
+
+      function fetchUserProfile() {
+        $.ajax({
+          url: "/api/user/current", // Backend endpoint for fetching profile data
+          method: "GET",
+          success: function (data) {
+            // Populate form fields with fetched data
+            $("#first-name").val(data.firstName);
+            $("#last-name").val(data.lastName);
+            $("#birthday").val(data.birthday);
+            $("#email").val(data.email);
+            $("#phone").val(data.phone);
+            $("#address").val(data.address);
+            $("#specialty").val(data.specialty);
+
+            // Update profile display
+            $("#artistFirstName").text(data.firstName);
+            $("#artistLastName").text(data.lastName);
+          },
+          error: function (xhr, status, error) {
+            console.error("Failed to fetch profile data:", error);
+            alert(
+              "Failed to load profile information. Please try again later."
+            );
+          },
+        });
+      }
+
+      function updateProfile() {
+        // Get form values
+        const updatedUser = {
+          firstName: $("#first-name").val(),
+          lastName: $("#last-name").val(),
+          birthday: $("#birthday").val(),
+          email: $("#email").val(),
+          phone: $("#phone").val(),
+          address: $("#address").val(),
+          specialty: $("#specialty").val(),
+        };
+
+        // Send PUT request to update the current user
+        $.ajax({
+          url: "/api/user/current",
+          method: "PUT",
+          contentType: "application/json",
+          data: JSON.stringify(updatedUser),
+          success: function () {
+            // Update profile display
+            $("#artistFirstName").text(updatedUser.firstName);
+            $("#artistLastName").text(updatedUser.lastName);
+            alert("Profile updated successfully!");
+          },
+          error: function (xhr, status, error) {
+            console.error("Failed to update profile:", error);
+            alert("Failed to update profile. Please try again later.");
+          },
+        });
+      }
+
+      function showDeleteModal() {
+        $("#deleteAccountModal").modal("show");
+      }
+
+      function deleteAccount() {
+        $.ajax({
+          url: "/api/user/current",
+          method: "DELETE",
+          success: function () {
+            alert("Account deleted successfully!");
+            logout();
+          },
+          error: function (xhr, status, error) {
+            console.error("Failed to delete account:", error);
+            alert("Failed to delete account. Please try again later.");
+          },
+        });
+      }
+
+      function logout() {
+        $.ajax({
+          url: "/auth/logout",
+          method: "POST",
+          success: function () {
+            alert("Logged out successfully!");
+            window.location.href = "/login"; // Redirect after deletion
+          },
+          error: function (xhr, status, error) {
+            console.error("Failed to logout:", error);
+            alert("Failed to logout!");
+          },
+        });
+      }
+
+      function scrollToSection(sectionId) {
+        document.getElementById(sectionId).scrollIntoView({
+          behavior: "smooth",
+        });
+      }
+    </script>
+  </body>
+</html>
