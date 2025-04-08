@@ -25,27 +25,35 @@ public class ShoppingCartController {
     // Get the user's shopping cart
     @GetMapping("/user/{userId}")
     public ResponseEntity<ShoppingCart> getCart(@PathVariable Long userId) {
-        if (userId == null) {
-            User user = (User) session.getAttribute("user");
-            userId = user.getUserID();
-        }
         return ResponseEntity.ok(shoppingCartService.getCartByUserId(userId));
+    }
+
+    @GetMapping("/user/current")
+    public ResponseEntity<ShoppingCart> getCurrentCart() {
+        User user = (User) session.getAttribute("user");
+        return ResponseEntity.ok(shoppingCartService.getCartByUserId(user.getUserID()));
     }
 
     // Add a product to the shopping cart
     @PostMapping("/add")
     public ResponseEntity<String> addToCart(@RequestParam Long userId, @RequestParam Long productId) {
-        if (userId == null) {
-            User user = (User) session.getAttribute("user");
-            userId = user.getUserID();
-        }
         shoppingCartService.addProductToCart(userId, productId);
+        return ResponseEntity.ok("Product added to cart successfully");
+    }
+
+    // Add a product to the current user's shopping cart
+    @PostMapping("/add/current/{productId}")
+    public ResponseEntity<String> addToCurrentCart(@PathVariable Long productId, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        shoppingCartService.addProductToCart(user.getUserID(), productId);
         return ResponseEntity.ok("Product added to cart successfully");
     }
 
     // Remove a product from the shopping cart
     @DeleteMapping("/remove")
-    public ResponseEntity<String> removeFromCart(@RequestParam Long userId, @RequestParam Long productId) {
+    public ResponseEntity<String> removeFromCart(@RequestParam(required = false) Long userId,
+                                                 @RequestParam Long productId,
+                                                 HttpSession session) {
         if (userId == null) {
             User user = (User) session.getAttribute("user");
             userId = user.getUserID();

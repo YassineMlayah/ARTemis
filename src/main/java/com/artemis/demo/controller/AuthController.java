@@ -73,6 +73,7 @@ public class AuthController {
         return "update-client.html";
     }
 
+/*
     @GetMapping("/sculpture")
     public String sculpture() {
         return "sculpture.html";
@@ -97,6 +98,7 @@ public class AuthController {
     public String photography() {
         return "photography.html";
     }
+*/
 
     @GetMapping("/cart")
     public String shoppingcart() {

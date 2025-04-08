@@ -80,10 +80,10 @@ public class UserController {
 
     // Get user by ID
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse> getUserById(@PathVariable Long id) {
-        return userService.getUserById(id)
-                .map(user -> ResponseEntity.ok(new ApiResponse("User found", true)))
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("User not found", false)));
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        Optional<User> user = userService.getUserById(id);
+        return user.map(ResponseEntity::ok)
+                   .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // Update user

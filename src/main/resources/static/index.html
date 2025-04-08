@@ -25,8 +25,48 @@
       }
 
       header {
-        background-color: black;
-        padding: 20px 50px;
+        padding: 25px 50px;
+        background: rgba(0, 0, 0, 0.9);
+        top: 0;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 50px;
+        margin: 0;
+        padding: 0;
+      }
+
+      nav a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.2rem;
+        font-weight: 500;
+        position: relative;
+        padding-bottom: 5px;
+      }
+
+      nav a::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: rgb(207, 187, 121);
+        transition: width 0.4s ease;
+      }
+
+      nav a:hover::after,
+      .active::after {
+        width: 100%;
+      }
+
+      .active {
+        color: rgb(207, 187, 121);
       }
 
       .log-icone {
@@ -84,9 +124,50 @@
       }
 
       footer {
-        background-color: rgb(194, 184, 96);
+        text-align: center;
+        padding: 20px;
+        background: black;
+      }
+      footer .footer-container {
+        display: flex;
+        justify-content: space-between;
+      }
+      footer .footer-section {
+        flex: 1;
+        margin: 10px;
+      }
+      footer .footer-section h3 {
+        margin-top: 0;
         color: black;
-        padding: 40px 50px;
+      }
+      footer .footer-section ul {
+        list-style: none;
+        padding: 0;
+      }
+      footer .footer-section ul li a {
+        text-decoration: none;
+        color: black;
+      }
+      footer .footer-section .app-links a img {
+        width: 50px;
+        margin: 5px;
+      }
+      .service-icon-img {
+        width: 55px;
+        height: 55px;
+        margin-right: 10px;
+      }
+
+      .modal-content {
+        background-color: black;
+        color: white;
+      }
+
+      .card-body h5 {
+        font-weight: bold;
+        font-size: 1.2rem;
+        color: rgb(0, 0, 0);
+        margin: 0;
       }
     </style>
   </head>
@@ -107,7 +188,12 @@
             <li>
               <a
                 href="/"
-                style="color: white; text-decoration: none; font-size: 16px"
+                class="active"
+                style="
+                  color: rgb(207, 187, 121);
+                  text-decoration: none;
+                  font-size: 16px;
+                "
                 >Home</a
               >
             </li>
@@ -135,6 +221,39 @@
           </ul>
         </nav>
         <div class="d-flex align-items-center gap-3">
+          <!-- Updated Search Bar -->
+          <div
+            class="search-bar"
+            style="position: relative; width: 250px; margin-right: 500px"
+          >
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Search artist..."
+              style="
+                padding: 8px 35px 8px 12px;
+                border-radius: 20px;
+                border: 1px solid rgb(207, 187, 121);
+                background-color: transparent;
+                color: white;
+                width: 100%;
+                font-size: 14px;
+              "
+            />
+            <i
+              class="fas fa-search"
+              id="searchButton"
+              style="
+                position: absolute;
+                top: 50%;
+                right: 10px;
+                transform: translateY(-50%);
+                color: rgb(207, 187, 121);
+                font-size: 16px;
+                cursor: pointer;
+              "
+            ></i>
+          </div>
           <a
             href="/login"
             style="color: white; text-decoration: none; font-size: 16px"
@@ -162,13 +281,23 @@
         <!-- Categories Section -->
         <div class="col-md-3">
           <div class="categories-list">
-            <h4 style="color: rgb(207, 187, 121)">Categories</h4>
+            <h1 style="color: rgb(207, 187, 121)">Categories</h1>
             <ul>
-              <li><a href="/sculpture">Sculpture</a></li>
-              <li><a href="/painting">Painting</a></li>
-              <li><a href="/sketching">Sketching</a></li>
-              <li><a href="/digitalart">Digital Art</a></li>
-              <li><a href="/photography">Photography</a></li>
+              <li>
+                <a href="/products?category=SCULPTURE">Sculpture</a>
+              </li>
+              <li>
+                <a href="/products?category=PAINTING">Painting</a>
+              </li>
+              <li>
+                <a href="/products?category=SKETCHING">Sketching</a>
+              </li>
+              <li>
+                <a href="/products?category=DIGITAL_ART">Digital Art</a>
+              </li>
+              <li>
+                <a href="/products?category=PHOTOGRAPHY">Photography</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -241,124 +370,198 @@
         </div>
       </div>
 
-      <!-- Best-Selling Products Section -->
-      <h3 class="mt-5" style="color: rgb(207, 187, 121)">
-        Best-Selling Products
-      </h3>
-      <div class="row">
-        <!-- Example product cards -->
-        <div class="col-md-4">
-          <div class="card">
-            <img
-              src="https://i.pinimg.com/736x/f4/c9/ca/f4c9caa581fcbeeb650bdb22e0ff4602.jpg"
-              alt="Product 1"
-            />
-            <div class="card-body">
-              <textarea readonly>
-a sculpture of a woman with her eyes closed, Midjourney</textarea
-              >
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card">
-            <img
-              src="https://i.pinimg.com/736x/94/1f/bd/941fbda1cac3fb7b3bbfaf0570757099.jpg"
-              alt="Product 2"
-            />
-            <div class="card-body">
-              <textarea readonly>Romanticizing</textarea>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card">
-            <img
-              src="https://i.pinimg.com/736x/83/68/de/8368de5102b554118b291592d4e990dd.jpg"
-              alt="Product 3"
-            />
-            <div class="card-body">
-              <textarea readonly>
-Girl with a Pearl Earring by Johannes Vermeer Journal</textarea
-              >
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card">
-            <img
-              src="https://i.pinimg.com/736x/10/ef/78/10ef78f2d996c44cb7a3e9288f6ca81c.jpg"
-              alt="Product 4"
-            />
-            <div class="card-body">
-              <textarea readonly>Aurora's Embrace</textarea>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card">
-            <img
-              src="https://i.pinimg.com/736x/97/6b/7d/976b7dca88e24b96f99875deedb9f1b5.jpg"
-              alt="Product 5"
-            />
-            <div class="card-body">
-              <textarea readonly>Blue Arabic calligraphy</textarea>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card">
-            <img
-              src="https://i.pinimg.com/736x/69/6f/fd/696ffd86edb7ed311d67973dd9b761f0.jpg"
-              alt="Product 6"
-            />
-            <div class="card-body">
-              <textarea readonly>
-Abstract painting of an illusory fact</textarea
-              >
+      <div class="row mt-5">
+        <div class="col-md-12">
+          <div
+            class="d-flex flex-wrap-reverse justify-content-center align-items-center text p-5 gap-5"
+            style="background-color: rgba(0, 0, 0, 0.8); border-radius: 15px"
+          >
+            <div
+              class="d-flex justify-content-around align-items-center text gap-3"
+            >
+              <div class="flex-wrap">
+                <h3
+                  style="
+                    font-size: 25px;
+                    color: rgb(207, 187, 121);
+                    margin-top: 80px;
+                    margin-left: -100px;
+                  "
+                  class="texte"
+                >
+                  Upcoming Events
+                </h3>
+                <h2
+                  style="
+                    max-width: 700px;
+                    font-size: 40px;
+                    color: rgb(185, 130, 26);
+                    margin-left: -100px;
+                  "
+                  class="font navystyle"
+                >
+                  Art Galleries Featuring
+                  <span class="rose">Celebrated Artists</span> from Around the
+                  World
+                </h2>
+                <p
+                  style="max-width: 370px; font-size: 18px; margin-left: -100px"
+                  class="navystyle"
+                >
+                  Exciting art galleries are coming soon, featuring famous
+                  artists from different countries. These events will show
+                  amazing paintings, sculptures, and modern art for everyone to
+                  enjoy. Whether you love classic or contemporary art, there’s
+                  something for you. Don’t miss the chance to see these
+                  beautiful works and get inspired!
+                </p>
+                <a href="./pages/Sign Up.html">
+                  <button
+                    type="button"
+                    class="btn"
+                    style="
+                      background-color: rgb(207, 187, 121);
+                      color: black;
+                      font-weight: bold;
+                      border: none;
+                      padding: 10px 20px;
+                      border-radius: 5px;
+                      font-size: 16px;
+                      cursor: pointer;
+                    "
+                  >
+                    Register to the event
+                  </button>
+                </a>
+              </div>
+              <img
+                src="https://i.pinimg.com/736x/1d/ac/b5/1dacb548b5f3b22f0d4b4010cdd677b1.jpg"
+                style="
+                  border: none;
+                  margin-left: 30px;
+                  width: 520px;
+                  height: 600px;
+                  margin-top: 90px;
+                  margin-right: 138px;
+                "
+                loading="lazy"
+              />
             </div>
           </div>
         </div>
       </div>
+
+      <!-- Best-Selling Products Section -->
+      <h3 class="mt-5 text-center" style="color: rgb(207, 187, 121)">
+        Best-Selling Products
+      </h3>
+      <div class="row justify-content-center" id="bestSellingProducts"></div>
     </div>
 
-    <footer>
-      <div class="row">
-        <div class="col-md-3">
-          <h5>Exclusive</h5>
-          <p>Subscribe to get 10% off your first order</p>
-          <input
-            type="email"
-            placeholder="Enter your email"
-            style="width: 100%; padding: 8px; border: none; border-radius: 5px"
-          />
+    <footer style="background-color: rgb(194, 184, 96)">
+      <div class="footer-container" style="margin-top: 50px">
+        <div class="footer-section">
+          <h3>Exclusive</h3>
+          <p>Subscribe</p>
+          <p>Get 10% off your first order</p>
+          <input type="email" placeholder="Enter your email" />
         </div>
-        <div class="col-md-3">
-          <h5>Support</h5>
+        <div class="footer-section">
+          <h3>Support</h3>
           <p>FST, Campus Universitaire El-Manar, 2092 El Manar Tunis</p>
           <p>ARTemisSupport@exclusive.com</p>
           <p>+216 99 999 999</p>
         </div>
-        <div class="col-md-3">
-          <h5>Account</h5>
-          <ul style="list-style: none; padding: 0">
+        <div class="footer-section">
+          <h3>Account</h3>
+          <ul>
             <li><a href="/profile">My Account</a></li>
             <li><a href="/login">Login / Register</a></li>
-            <li><a href="#">Cart</a></li>
+            <li><a href="/cart">Cart</a></li>
             <li><a href="#">Wishlist</a></li>
-            <li><a href="#">Shop</a></li>
+            <li><a href="/products">Shop</a></li>
           </ul>
         </div>
-        <div class="col-md-3">
-          <h5>Quick Link</h5>
-          <ul style="list-style: none; padding: 0">
+        <div class="footer-section">
+          <h3>Quick Link</h3>
+          <ul>
             <li><a href="#">Privacy Policy</a></li>
             <li><a href="#">Terms Of Use</a></li>
             <li><a href="#">FAQ</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="/contact">Contact</a></li>
           </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Sponsoring</h3>
+          <p>Sponsored by Twitter & Instagram</p>
+          <div class="d-flex align-items-center align-content-center">
+            <a href="#"
+              ><img
+                class="service-icon-img"
+                style="margin-left: 55px"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj-X06O3ppyMhQotOP_Km27fpwe0FgZGqXiA&s"
+                alt="App Store"
+            /></a>
+            <a href="#"
+              ><img
+                class="service-icon-img"
+                style="margin-left: 20px"
+                src="https://cdn-icons-png.flaticon.com/512/5968/5968776.png"
+                alt="App Store"
+            /></a>
+          </div>
         </div>
       </div>
     </footer>
+    <script>
+      document
+        .getElementById("searchButton")
+        .addEventListener("click", function () {
+          const artistName = document
+            .getElementById("searchInput")
+            .value.trim();
+          if (artistName) {
+            window.location.href = `/products?artistName=${encodeURIComponent(
+              artistName
+            )}`;
+          }
+        });
+
+      document
+        .getElementById("searchInput")
+        .addEventListener("keypress", function (event) {
+          if (event.key === "Enter") {
+            const artistName = document
+              .getElementById("searchInput")
+              .value.trim();
+            if (artistName) {
+              window.location.href = `/products?artistName=${encodeURIComponent(
+                artistName
+              )}`;
+            }
+          }
+        });
+
+      // Fetch and display top 6 best-selling products
+      fetch("/api/product/top6")
+        .then((response) => response.json())
+        .then((products) => {
+          const container = document.getElementById("bestSellingProducts");
+          container.innerHTML = ""; // Clear existing content
+          products.forEach((product) => {
+            const productCard = `
+              <div class="col-md-4">
+                <div class="card">
+                  <img src="${product.imagePath}" alt="${product.name}" />
+                  <div class="card-body" style="background-color: rgb(207, 187, 121);">
+                    <h5>${product.name}</h5>
+                  </div>
+                </div>
+              </div>`;
+            container.innerHTML += productCard;
+          });
+        })
+        .catch((error) => console.error("Error fetching top products:", error));
+    </script>
   </body>
 </html>

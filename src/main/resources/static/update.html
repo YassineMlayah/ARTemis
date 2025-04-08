@@ -524,7 +524,35 @@
         </h1>
 
         <div class="cards-container">
-          <div class="row"></div>
+          <div class="row">
+            <!-- Example of a product card -->
+            <div class="col-md-4">
+              <div class="card" data-product-id="1">
+                <img
+                  src="product-image.jpg"
+                  class="card-img-top"
+                  alt="Product Name"
+                />
+                <div class="card-body">
+                  <h5
+                    class="card-title"
+                    style="
+                      font-family: 'Playfair Display', serif;
+                      font-size: 18px;
+                      font-weight: bold;
+                    "
+                  >
+                    Product Name
+                  </h5>
+                  <div class="d-flex justify-content-between mt-2">
+                    <span class="badge bg-dark">$100</span>
+                    <span class="badge bg-success">Available</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Repeat for other products -->
+          </div>
         </div>
       </div>
 
@@ -759,62 +787,51 @@
                 </div>
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label
-                      for="articleModalDescription"
-                      class="form-label"
-                      style="font-family: 'Playfair Display', serif"
+                    <label for="articleModalName" class="form-label"
+                      >Product Name</label
+                    >
+                    <input
+                      type="text"
+                      id="articleModalName"
+                      class="form-control"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="articleModalDescription" class="form-label"
                       >Description</label
                     >
                     <textarea
                       id="articleModalDescription"
                       class="form-control"
                       rows="3"
-                      style="font-family: 'Playfair Display', serif"
                     ></textarea>
                   </div>
                   <div class="mb-3">
-                    <label
-                      for="articleModalPrice"
-                      class="form-label"
-                      style="font-family: 'Playfair Display', serif"
+                    <label for="articleModalPrice" class="form-label"
                       >Price</label
                     >
                     <input
                       type="text"
                       id="articleModalPrice"
                       class="form-control"
-                      value="$120"
-                      style="font-family: 'Playfair Display', serif"
                     />
                   </div>
                   <div class="mb-3">
-                    <label
-                      for="articleModalAvailability"
-                      class="form-label"
-                      style="font-family: 'Playfair Display', serif"
+                    <label for="articleModalAvailability" class="form-label"
                       >Availability</label
                     >
-                    <select
-                      id="articleModalAvailability"
-                      class="form-select"
-                      style="font-family: 'Playfair Display', serif"
-                    >
+                    <select id="articleModalAvailability" class="form-select">
                       <option>Available</option>
                       <option>Sold</option>
-                      <option>Reserved</option>
                     </select>
                   </div>
                 </div>
               </div>
             </div>
-            <div
-              class="modal-footer"
-              style="background-color: #f8f9fa; border-top: none"
-            >
+            <div class="modal-footer">
               <button
                 type="button"
                 class="btn btn-danger"
-                style="font-family: 'Playfair Display', serif"
                 onclick="deleteProduct($('#articleModal').data('productId'))"
               >
                 Delete
@@ -822,7 +839,6 @@
               <button
                 type="button"
                 class="btn btn-custom"
-                style="font-family: 'Playfair Display', serif"
                 onclick="updateProduct($('#articleModal').data('productId'))"
               >
                 Update
@@ -947,6 +963,7 @@
             $("#phone").val(data.phone);
             $("#address").val(data.address);
             $("#specialty").val(data.specialty);
+            $("#category").val(data.category); // Set category value
 
             // Update profile display
             $("#artistFirstName").text(data.firstName);
@@ -971,6 +988,7 @@
           phone: $("#phone").val(),
           address: $("#address").val(),
           specialty: $("#specialty").val(),
+          category: $("#category").val(), // Include category in the update
         };
 
         // Send PUT request to update the current user
@@ -993,11 +1011,13 @@
       }
 
       function updateArticle() {
+        const newName = $("#articleModalName").val();
         const newDescription = $("#articleModalDescription").val();
         const newPrice = $("#articleModalPrice").val();
         const newAvailability = $("#articleModalAvailability").val();
 
         console.log("Updating article with:", {
+          name: newName,
           description: newDescription,
           price: newPrice,
           availability: newAvailability,
@@ -1089,7 +1109,9 @@
                 product.name
               }" />
                     <div class="card-body">
-                      <textarea readonly>${product.description}</textarea>
+                      <h5 class="card-title" style="font-family: 'Playfair Display', serif; font-size: 18px; font-weight: bold;">
+                        ${product.name}
+                      </h5>
                       <div class="d-flex justify-content-between mt-2">
                         <span class="badge bg-dark">$${product.price}</span>
                         <span class="badge ${
@@ -1131,11 +1153,13 @@
             // Populate modal fields with product data
             $("#articleModal").data("productId", product.productID); // Store productId in modal
             $("#articleModalImage").attr("src", product.imagePath);
+            $("#articleModalName").val(product.name);
             $("#articleModalDescription").val(product.description);
             $("#articleModalPrice").val(product.price);
             $("#articleModalAvailability").val(
               product.available ? "Available" : "Sold"
             );
+            $("#articleModalCategory").val(product.category); // Set category value
             $("#articleModal").modal("show"); // Show the modal
           },
           error: function (xhr, status, error) {
@@ -1151,9 +1175,11 @@
 
       function updateProduct(productId) {
         const updatedProduct = {
+          name: $("#articleModalName").val(),
           description: $("#articleModalDescription").val(),
           price: parseFloat($("#articleModalPrice").val().replace("$", "")),
           available: $("#articleModalAvailability").val() === "Available",
+          category: $("#articleModalCategory").val(), // Include category in the update
         };
 
         $.ajax({

@@ -1,10 +1,13 @@
 package com.artemis.demo.service;
 
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.PageRequest;
 
 import com.artemis.demo.model.*;
+import com.artemis.demo.model.enums.Category;
 import com.artemis.demo.model.enums.Role;
 import com.artemis.demo.repository.*;
 
@@ -50,6 +53,8 @@ public class ProductService{
         Product existingProduct = productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("Product not found"));
 
+        existingProduct.setName(updatedProduct.getName());
+        existingProduct.setCategory(updatedProduct.getCategory());
         existingProduct.setDescription(updatedProduct.getDescription());
         existingProduct.setPrice(updatedProduct.getPrice());
         existingProduct.setAvailable(updatedProduct.isAvailable());
@@ -67,4 +72,29 @@ public class ProductService{
         return productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("Product not found"));
     }
+
+    // Filter Products
+    public List<Product> filterProducts(Double minPrice, Double maxPrice, Category category, String sortOption, String artistName) {
+        List<Product> filtered = productRepository.filterProducts(minPrice, maxPrice, category, artistName);
+        if (sortOption != null) {
+            switch (sortOption) {
+                case "lowToHigh":
+                    filtered.sort(Comparator.comparing(Product::getPrice));
+                    break;
+                case "highToLow":
+                    filtered.sort(Comparator.comparing(Product::getPrice).reversed());
+                    break;
+                case "alphabetical":
+                    filtered.sort(Comparator.comparing(Product::getName));
+                    break;
+            }
+        }
+        return filtered;
+    }
+
+    // Get Top 6 Products
+    public List<Product> getTop6Products() {
+        return productRepository.findTop6Products(PageRequest.of(0, 6));
+    }
+
 }

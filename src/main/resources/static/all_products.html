@@ -64,6 +64,25 @@
         background-color: rgb(219, 206, 131);
       }
 
+      .card-body textarea {
+        border: none;
+        background-color: transparent;
+        resize: none;
+        overflow: hidden;
+        font-size: 18px; /* Increased font size */
+        font-weight: bold; /* Make the title bold */
+        font-family: "Playfair Display", serif;
+        color: black;
+        width: 100%;
+        height: auto;
+        padding: 0;
+        margin: 0;
+      }
+
+      .card-body textarea:focus {
+        outline: none;
+      }
+
       .modal-content {
         border: 2px solid rgb(219, 206, 131);
       }
@@ -129,6 +148,13 @@
                 >About</a
               >
             </li>
+            <li>
+              <a
+                href="/cart"
+                style="color: white; text-decoration: none; font-size: 16px"
+                >Cart</a
+              >
+            </li>
           </ul>
         </nav>
         <div class="d-flex align-items-center gap-3">
@@ -186,6 +212,15 @@
                 <option value="all">All Categories</option>
                 <!-- Categories will be dynamically populated -->
               </select>
+            </div>
+            <div class="mb-3">
+              <label for="artistFilter" class="form-label">Artist</label>
+              <input
+                type="text"
+                id="artistFilter"
+                class="form-control"
+                placeholder="Enter artist name"
+              />
             </div>
             <button class="btn btn-custom w-100" onclick="applyFilters()">
               Apply Filters
@@ -265,6 +300,28 @@
                     readonly
                   />
                 </div>
+                <div class="mb-3">
+                  <label for="productModalCategory" class="form-label"
+                    >Category</label
+                  >
+                  <input
+                    type="text"
+                    id="productModalCategory"
+                    class="form-control"
+                    readonly
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="productModalArtist" class="form-label"
+                    >Artist</label
+                  >
+                  <input
+                    type="text"
+                    id="productModalArtist"
+                    class="form-control"
+                    readonly
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -288,6 +345,7 @@
       $(document).ready(function () {
         fetchCategories();
         fetchProducts();
+        applyFilters();
 
         $(".cards-container").on("click", ".card", function () {
           const productId = $(this).data("product-id");
@@ -330,7 +388,7 @@
                         product.imagePath
                       }" class="card-img-top" alt="${product.name}" />
                       <div class="card-body">
-                        <textarea readonly>${product.description}</textarea>
+                        <textarea readonly>${product.name}</textarea>
                         <div class="d-flex justify-content-between mt-2">
                           <span class="badge bg-dark">$${product.price}</span>
                           <span class="badge ${
@@ -364,6 +422,13 @@
             $("#productModalAvailability").val(
               product.available ? "Available" : "Sold"
             );
+            $("#productModalCategory").val(product.category.replace("_", " "));
+            const fullName = `${product.artist.firstName} ${product.artist.lastName}`;
+            $("#productModalArtist").val(fullName);
+
+            // Update modal title with product name
+            $("#productModalLabel").text(product.name);
+
             $("#productModal").modal("show");
           },
           error: function (xhr, status, error) {
@@ -375,7 +440,7 @@
 
       function addToCart(productId) {
         $.ajax({
-          url: `/api/cart/add/${productId}`,
+          url: `/api/cart/add/current/${productId}`,
           method: "POST",
           success: function () {
             alert("Product added to cart successfully!");
@@ -389,16 +454,102 @@
       }
 
       function applyFilters() {
+        // Extract the filter values from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+
+        const minPrice = urlParams.get("minPrice") || $("#minPrice").val() || 0;
+        const maxPrice =
+          urlParams.get("maxPrice") || $("#maxPrice").val() || Number.MAX_VALUE;
+        const sortOption =
+          urlParams.get("sortOption") || $("#sortOptions").val();
+        const category =
+          urlParams.get("category") || $("#categoryFilter").val() || "all";
+        const artistName =
+          urlParams.get("artistName") || $("#artistFilter").val() || "";
+
+        // Make the AJAX request with the current filter values
+        $.ajax({
+          url: "/api/product/filter",
+          method: "GET",
+          data: {
+            minPrice: minPrice,
+            maxPrice: maxPrice,
+            sortOption: sortOption,
+            category: category,
+            artistName: artistName,
+          },
+          success: function (products) {
+            const container = $(".cards-container .row");
+            container.empty(); // Clear current products
+
+            products.forEach((product) => {
+              const card = `
+                        <div class="col-md-4">
+                            <div class="card" data-product-id="${
+                              product.productID
+                            }">
+                                <img src="${
+                                  product.imagePath
+                                }" class="card-img-top" alt="${product.name}" />
+                                <div class="card-body">
+                                    <textarea readonly>${
+                                      product.name
+                                    }</textarea>
+                                    <div class="d-flex justify-content-between mt-2">
+                                        <span class="badge bg-dark">$${
+                                          product.price
+                                        }</span>
+                                        <span class="badge ${
+                                          product.available
+                                            ? "bg-success"
+                                            : "bg-danger"
+                                        }">
+                                            ${
+                                              product.available
+                                                ? "Available"
+                                                : "Sold"
+                                            }
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+              container.append(card);
+            });
+          },
+          error: function (xhr, status, error) {
+            console.error("Failed to fetch filtered products:", error);
+            alert("Failed to apply filters. Please try again later.");
+          },
+        });
+      }
+      function updateUrlParams() {
         const minPrice = $("#minPrice").val();
         const maxPrice = $("#maxPrice").val();
         const sortOption = $("#sortOptions").val();
         const category = $("#categoryFilter").val();
+        const artistName = $("#artistFilter").val();
 
-        // Implement filter logic here
-        alert(
-          `Filters applied! Min Price: ${minPrice}, Max Price: ${maxPrice}, Sort: ${sortOption}, Category: ${category}`
-        );
+        // Create a new URLSearchParams object
+        const newParams = new URLSearchParams();
+
+        if (category !== "all") newParams.set("category", category);
+        if (minPrice) newParams.set("minPrice", minPrice);
+        if (maxPrice) newParams.set("maxPrice", maxPrice);
+        if (sortOption) newParams.set("sortOption", sortOption);
+        if (artistName) newParams.set("artistName", artistName);
+
+        // Update the browser's URL without reloading the page
+        window.history.replaceState(null, "", "?" + newParams.toString());
       }
+
+      // Update the URL whenever filters are changed
+      $(
+        "#minPrice, #maxPrice, #sortOptions, #categoryFilter, #artistFilter"
+      ).change(function () {
+        updateUrlParams();
+        applyFilters();
+      });
     </script>
     <footer
       style="
@@ -438,7 +589,9 @@
               >
             </li>
             <li>
-              <a href="#" style="color: white; text-decoration: none">Cart</a>
+              <a href="/cart" style="color: white; text-decoration: none"
+                >Cart</a
+              >
             </li>
             <li>
               <a href="#" style="color: white; text-decoration: none"

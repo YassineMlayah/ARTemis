@@ -24,7 +24,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable()) // Disable CSRF since it's a local application
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/login", "/auth/session", "/auth/logout"
-                                            , "/", "/login", "/signup", "/contact", "/aboutus", "/artist-signup", "/client-signup").permitAll() // Allow login & signup
+                                            , "/", "/login", "/signup", "/contact", "/aboutus", "/artist-signup", "/client-signup", "/profile", "/products").permitAll() // Allow login & signup
                 .requestMatchers("/**").permitAll()
                 .anyRequest().authenticated() // Restrict other endpoints to authenticated users
             )
